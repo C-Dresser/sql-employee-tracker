@@ -3,10 +3,14 @@ CREATE DATABASE staff_db;
 
 USE staff_db;
 
+-- creates department table in staff_db --
+
 CREATE TABLE department (
     id INT NOT NULL,
     dept_name VARCHAR(30) NOT NULL
 );
+
+-- creates department roles in staff_db --
 
 CREATE TABLE roles (
     id INT NOT NULL,
@@ -14,6 +18,8 @@ CREATE TABLE roles (
     salary DECIMAL,
     dept_id INT NOT NULL
 );
+
+-- creates employee table in staff_db --
 
 CREATE TABLE employee (
     id INT NOT NULL,
