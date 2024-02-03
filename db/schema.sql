@@ -3,7 +3,7 @@ CREATE DATABASE staff_db;
 
 USE staff_db;
 
--- creates department table in staff_db --
+-- //////////creates department table in staff_db////////// --
 
 CREATE TABLE department (
     id INT NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE department (
     PRIMARY KEY (id)
 );
 
--- creates department roles in staff_db --
+-- //////////creates department roles in staff_db////////// --
 
 CREATE TABLE roles (
     id INT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE roles (
     REFERENCES department(id)
 );
 
--- creates employee table in staff_db --
+-- //////////creates employee table in staff_db////////// --
 
 CREATE TABLE employee (
     id INT NOT NULL,
