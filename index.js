@@ -1,6 +1,16 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+// ASCII art for "Employee Manager"
+const employeeManagerArt = `
+███████ ███    ███ ██████  ██       ██████  ██    ██ ███████ ███████     ███    ███  █████  ███    ██  █████   ██████  ███████ ██████  
+██      ████  ████ ██   ██ ██      ██    ██  ██  ██  ██      ██          ████  ████ ██   ██ ████   ██ ██   ██ ██       ██      ██   ██ 
+█████   ██ ████ ██ ██████  ██      ██    ██   ████   █████   █████       ██ ████ ██ ███████ ██ ██  ██ ███████ ██   ███ █████   ██████  
+██      ██  ██  ██ ██      ██      ██    ██    ██    ██      ██          ██  ██  ██ ██   ██ ██  ██ ██ ██   ██ ██    ██ ██      ██   ██ 
+███████ ██      ██ ██      ███████  ██████     ██    ███████ ███████     ██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████ ██   ██ 
+                                                                                                                                       
+`;
+
 /////////////////////  OPTIONS LIST  ///////////////////////////
 const mainMenu = async () => {
     const choices = [
@@ -20,7 +30,7 @@ const mainMenu = async () => {
         choices,
     });
 
-/////////////  SWITCH CASES  ////////////////////
+    // Handle the selected action inside the mainMenu function
     switch (action) {
         case 'View All Employees':
             console.log('YOU SELECTED: View All Employees');
@@ -53,12 +63,13 @@ const mainMenu = async () => {
         case 'Quit':
             process.exit();
     }
-//////////////////////  CALL MENU AFTER SELECTION, TEMPORARY FOR TESTING  ////////////////////////////////////////
+    // After handling the action, call the mainMenu again to keep the program running
     mainMenu();
 };
 
 function init() {
-    console.log('Welcome to EMPLOYEE MANAGER 2K24!!!');
+    console.log(employeeManagerArt);
+    console.log('\nWelcome to EMPLOYEE MANAGER 2K24!!!\n');
     mainMenu();
 }
 
