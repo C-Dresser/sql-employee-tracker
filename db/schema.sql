@@ -5,9 +5,9 @@ USE staff_db;
 
 -- //////////creates department table in staff_db////////// --
 
-CREATE TABLE department (
+CREATE TABLE departments (
     id INT NOT NULL,
-    dept_name VARCHAR(30) NOT NULL,
+    dept_name VARCHAR(60) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -15,20 +15,20 @@ CREATE TABLE department (
 
 CREATE TABLE roles (
     id INT NOT NULL,
-    title VARCHAR(30) NOT NULL,
+    title VARCHAR(60) NOT NULL,
     salary DECIMAL,
     dept_id INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (department_id)
-    REFERENCES department(id)
+    FOREIGN KEY (dept_id)
+    REFERENCES departments(id)
 );
 
 -- //////////creates employee table in staff_db////////// --
 
-CREATE TABLE employee (
+CREATE TABLE employees (
     id INT NOT NULL,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
+    first_name VARCHAR(60) NOT NULL,
+    last_name VARCHAR(60) NOT NULL,
     roles_id INT NOT NULL,
     manager_id INT,
     FOREIGN KEY (roles_id)

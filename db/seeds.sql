@@ -1,6 +1,6 @@
 -- //////////Seeds department table////////// --
 
-INSERT INTO department (id, dept_name)
+INSERT INTO departments (id, dept_name)
 VALUES  (1, "Reception"),
         (2, "Sales"),
         (3, "HR"),
@@ -21,7 +21,7 @@ VALUES  (11, "Receptionist", 32000.00, 1),
 
 -- //////////seeds employee table////////// --
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
+INSERT INTO employees (id, first_name, last_name, roles_id, manager_id)
 VALUES  (111, "Pam", "Beasley", 11, 41),
         (211, "Jim", "Halpert", 21, 41),
         (221, "Creed", "Bratton", 22, 21),
