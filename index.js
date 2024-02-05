@@ -28,8 +28,15 @@ const employeeManagerArt = `
 async function executeSqlCommand(sqlCommand) {
     try {
         const [rows, fields] = await pool.query(sqlCommand);
-        console.log('SQL command executed successfully');
-        console.table('Results:', rows);
+
+        // If the query is a SELECT statement, display the table
+        if (sqlCommand.trim().toUpperCase().startsWith('SELECT')) {
+            console.log(`Results for query: ${sqlCommand}`);
+            console.table(rows);
+        } else {
+            const affectedRows = rows ? rows.affectedRows : 0;
+            console.log(`SQL command executed successfully. Affected rows: ${affectedRows}`);
+        }
     } catch (error) {
         console.error('Error executing SQL command:', error);
     }
@@ -55,6 +62,39 @@ async function showDepartments() {
     await executeSqlCommand(sqlCommand);
 }
 
+// Function to add a department with unique id
+async function addDepartment() {
+    try {
+        // Get the maximum department ID from the table
+        const [maxDepartmentId] = await pool.query('SELECT MAX(id) as maxId FROM departments');
+        const newDepartmentId = maxDepartmentId[0].maxId + 1 || 1; // Increment the max ID or start from 1 if no existing IDs
+
+        // Prompt the user for department details
+        const departmentDetails = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'deptName',
+                message: 'Enter the department name:',
+                validate: (input) => input.trim() !== '', // Ensure a non-empty name
+            },
+        ]);
+
+        // SQL command to insert a new department
+        const sqlCommand = `
+            INSERT INTO departments (id, dept_name)
+            VALUES (${newDepartmentId}, '${departmentDetails.deptName}');
+        `;
+
+        // Execute the SQL command
+        await executeSqlCommand(sqlCommand);
+
+        console.log('Department added successfully!');
+    } catch (error) {
+        console.error('Error adding department:', error);
+    }
+
+    showDepartments();
+}
 
 /////////////////////  OPTIONS LIST  ///////////////////////////
 const mainMenu = async () => {
@@ -90,7 +130,7 @@ const mainMenu = async () => {
             break;
 
         case 'View All Roles':
-          await showRoles();
+            await showRoles();
             break;
 
         case 'Add Role':
@@ -98,11 +138,11 @@ const mainMenu = async () => {
             break;
 
         case 'View All Departments':
-           await showDepartments();
+            await showDepartments();
             break;
 
         case 'Add Department':
-            console.log('YOU SELECTED: Add Department');
+            await addDepartment(); // Use await to ensure the function completes before moving on
             break;
 
         case 'Quit':
