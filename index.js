@@ -1,5 +1,5 @@
 const fs = require('fs');
-const mysql = require('mysql2/promise'); // Import the promise-based version
+const mysql = require('mysql2/promise'); 
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
 
@@ -66,14 +66,13 @@ async function showDepartments() {
 async function addDepartment() {
     try {
         const [maxDepartmentId] = await pool.query('SELECT MAX(id) as maxId FROM departments');
-        const newDepartmentId = maxDepartmentId[0].maxId + 1 || 1; // Increment the max ID or start from 1 if no existing IDs
-
+        const newDepartmentId = maxDepartmentId[0].maxId + 1 || 1; 
         const departmentDetails = await inquirer.prompt([
             {
                 type: 'input',
                 name: 'deptName',
                 message: 'Enter the department name:',
-                validate: (input) => input.trim() !== '', // Ensure a non-empty name
+                validate: (input) => input.trim() !== '', 
             },
         ]);
 
@@ -96,20 +95,19 @@ async function addDepartment() {
 async function addRole() {
     try {
         const [maxRoleId] = await pool.query('SELECT MAX(id) as maxId FROM roles');
-        const newRoleId = maxRoleId[0].maxId + 1 || 1; // Increment the max ID or start from 1 if no existing IDs
-
+        const newRoleId = maxRoleId[0].maxId + 1 || 1; 
         const roleDetails = await inquirer.prompt([
             {
                 type: 'input',
                 name: 'title',
                 message: 'Enter the role name:',
-                validate: (input) => input.trim() !== '', // Ensure a non-empty name
+                validate: (input) => input.trim() !== '', 
             },
             {
                 type: 'input',
                 name: 'salary',
                 message: 'Enter the salary for the role (decimal):',
-                validate: (input) => !isNaN(parseFloat(input)), // Ensure input is a valid number
+                validate: (input) => !isNaN(parseFloat(input)), 
             },
             {
                 type: 'list',
@@ -123,7 +121,6 @@ async function addRole() {
             INSERT INTO roles (id, title, salary, dept_id)
             VALUES (${newRoleId}, '${roleDetails.title}', ${parseFloat(roleDetails.salary)}, ${roleDetails.dept_Id});
         `
-        console.log(sqlCommand);
 
         await executeSqlCommand(sqlCommand);
 
@@ -139,20 +136,19 @@ async function addRole() {
 async function addEmployee() {
     try {
         const [maxEmpId] = await pool.query('SELECT MAX(id) as maxId FROM employees');
-        const newEmpId = maxEmpId[0].maxId + 1 || 1; // Increment the max ID or start from 1 if no existing IDs
-
+        const newEmpId = maxEmpId[0].maxId + 1 || 1; 
         const empDetails = await inquirer.prompt([
             {
                 type: 'input',
                 name: 'first_name',
                 message: 'Enter the employee first name:',
-                validate: (input) => input.trim() !== '', // Ensure a non-empty name
+                validate: (input) => input.trim() !== '', 
             },
             {
                 type: 'input',
                 name: 'last_name',
                 message: 'Enter the employee last name:',
-                validate: (input) => input.trim() !== '', // Ensure a non-empty name
+                validate: (input) => input.trim() !== '', 
             },
             {
                 type: 'list',
@@ -172,7 +168,6 @@ async function addEmployee() {
             INSERT INTO employees (id, first_name, last_name, roles_id, manager_id)
             VALUES (${newEmpId}, '${empDetails.first_name}', '${empDetails.last_name}', ${parseFloat(empDetails.roles_id)}, ${empDetails.manager_id});
         `
-        console.log(sqlCommand);
 
         await executeSqlCommand(sqlCommand);
 
